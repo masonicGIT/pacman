@@ -4,7 +4,7 @@ var atlas = (function(){
     var canvas,ctx;
     var size = 22;
     var cols = 14; // has to be ONE MORE than intended to fix some sort of CHROME BUG (last cell always blank?)
-    var rows = 22;
+    var rows = 23; // Femtech added rows: 1
 
     var creates = 0;
 
@@ -217,7 +217,7 @@ var atlas = (function(){
         drawOttoCells(row,4, DIR_LEFT);
 
         row++;
-        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 200, "#33ffff"); }, row, 0);
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 300, "#33ffff"); }, row, 0);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 400, "#33ffff"); }, row, 1);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 800, "#33ffff"); }, row, 2);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 1600, "#33ffff");}, row, 3);
@@ -259,6 +259,11 @@ var atlas = (function(){
         row++;
         drawMsOttoCells(row,0, DIR_DOWN);
         drawMsOttoCells(row,4, DIR_LEFT);
+        
+        // Femtech 0s and 1s for dots
+        row++;
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 0, "#33ffff"); }, row, 0);
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 1, "#33ffff"); }, row, 1);
 
     };
 
@@ -279,6 +284,18 @@ var atlas = (function(){
 
         destCtx.drawImage(canvas,sx,sy,sw,sh,dx,dy,dw,dh);
     };
+
+    var copyFemtechDots = function(destCtx,x,y,points) {
+        var row = 22;
+        var col = {
+            0: 0,
+            1: 1,
+        }[points];
+        if (col != undefined) {
+            copyCellTo(row, points, destCtx, x, y);
+        }
+    };
+
 
     var copyGhostPoints = function(destCtx,x,y,points) {
         var row = 16;
@@ -517,5 +534,6 @@ var atlas = (function(){
         drawPacFruitPoints: copyPacFruitPoints,
         drawMsPacFruitPoints: copyMsPacFruitPoints,
         drawSnail: copySnail,
+        drawFemtechDots: copyFemtechDots,
     };
 })();

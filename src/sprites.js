@@ -444,6 +444,14 @@ var drawPacPoints = (function(){
         ],color);
         ctx.restore();
     };
+    
+    var drawFemtech0 = function() {
+        draw0(-1,-3);
+    };
+
+    var drawFemtech1 = function() {
+        draw1(-1,-3);
+    };
 
     var draw100 = function() {
         draw1(-5,-3);
@@ -543,6 +551,8 @@ var drawPacPoints = (function(){
             2000: draw2000,
             3000: draw3000,
             5000: draw5000,
+            0: drawFemtech0,
+            1: drawFemtech1,
         }[points];
 
         if (f) {

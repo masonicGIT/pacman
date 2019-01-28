@@ -166,6 +166,7 @@ var GAME_PACMAN = 0;
 var GAME_MSPACMAN = 1;
 var GAME_COOKIE = 2;
 var GAME_OTTO = 3;
+var GAME_FEMTECH = 4;
 
 var practiceMode = false;
 var turboMode = false;
@@ -267,6 +268,9 @@ var getGhostDrawFunc = function(mode) {
     }
     else if (mode == GAME_COOKIE) {
         return atlas.drawMuppetSprite;
+    }
+    else if (mode == GAME_FEMTECH) {
+        return atlas.drawGhostSprite;
     }
     else {
         return atlas.drawGhostSprite;
