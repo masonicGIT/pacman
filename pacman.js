@@ -166,7 +166,6 @@ var GAME_PACMAN = 0;
 var GAME_MSPACMAN = 1;
 var GAME_COOKIE = 2;
 var GAME_OTTO = 3;
-var GAME_FEMTECH = 4;
 
 var practiceMode = false;
 var turboMode = false;
@@ -268,9 +267,6 @@ var getGhostDrawFunc = function(mode) {
     }
     else if (mode == GAME_COOKIE) {
         return atlas.drawMuppetSprite;
-    }
-    else if (mode == GAME_FEMTECH) {
-        return atlas.drawGhostSprite;
     }
     else {
         return atlas.drawGhostSprite;
@@ -2538,7 +2534,7 @@ var atlas = (function(){
     var canvas,ctx;
     var size = 22;
     var cols = 14; // has to be ONE MORE than intended to fix some sort of CHROME BUG (last cell always blank?)
-    var rows = 22;
+    var rows = 23; // Femtech added rows: 1
 
     var creates = 0;
 
@@ -2751,7 +2747,7 @@ var atlas = (function(){
         drawOttoCells(row,4, DIR_LEFT);
 
         row++;
-        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 200, "#33ffff"); }, row, 0);
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 300, "#33ffff"); }, row, 0);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 400, "#33ffff"); }, row, 1);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 800, "#33ffff"); }, row, 2);
         drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 1600, "#33ffff");}, row, 3);
@@ -2793,6 +2789,11 @@ var atlas = (function(){
         row++;
         drawMsOttoCells(row,0, DIR_DOWN);
         drawMsOttoCells(row,4, DIR_LEFT);
+        
+        // Femtech 0s and 1s for dots
+        row++;
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 0, "#33ffff"); }, row, 0);
+        drawAtCell(function(x,y) { drawPacPoints(ctx, x,y, 1, "#33ffff"); }, row, 1);
 
     };
 
@@ -2813,6 +2814,18 @@ var atlas = (function(){
 
         destCtx.drawImage(canvas,sx,sy,sw,sh,dx,dy,dw,dh);
     };
+
+    var copyFemtechDots = function(destCtx,x,y,points) {
+        var row = 21;
+        var col = {
+            0: 0,
+            1: 1,
+        }[points];
+        if (col != undefined) {
+            copyCellTo(row, points, destCtx, x, y);
+        }
+    };
+
 
     var copyGhostPoints = function(destCtx,x,y,points) {
         var row = 16;
@@ -3051,6 +3064,7 @@ var atlas = (function(){
         drawPacFruitPoints: copyPacFruitPoints,
         drawMsPacFruitPoints: copyMsPacFruitPoints,
         drawSnail: copySnail,
+        drawFemtechDots: copyFemtechDots,
     };
 })();
 //@line 1 "src/renderers.js"
@@ -3909,7 +3923,9 @@ var initRenderer = function(){
             }
             bgCtx.fillStyle = "#000";
             var i = map.posToIndex(x,y);
-            var size = map.tiles[i] == 'o' ? this.energizerSize : this.pelletSize;
+            // Femtech
+            // var size = map.tiles[i] == 'o' ? this.energizerSize : this.pelletSize;
+            var size = tileSize;
             this.drawCenterTileSq(bgCtx,x,y,size+2);
             if (!isTranslated) {
                 bgCtx.translate(-mapPad,-mapPad);
@@ -3928,7 +3944,11 @@ var initRenderer = function(){
             else if (tile == '.') {
                 bgCtx.fillStyle = map.pelletColor;
                 bgCtx.translate(0.5, 0.5);
-                this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+                // Femtech
+                // this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+                var tx = x*tileSize+midTile.x;
+                var ty = y*tileSize+midTile.y;
+                atlas.drawFemtechDots(bgCtx,tx,ty,Math.round(Math.random()));
                 bgCtx.translate(-0.5, -0.5);
             }
             else if (tile == 'o') {
@@ -5285,6 +5305,14 @@ var drawPacPoints = (function(){
         ],color);
         ctx.restore();
     };
+    
+    var drawFemtech0 = function() {
+        draw0(-1,-3);
+    };
+
+    var drawFemtech1 = function() {
+        draw1(-1,-3);
+    };
 
     var draw100 = function() {
         draw1(-5,-3);
@@ -5384,6 +5412,8 @@ var drawPacPoints = (function(){
             2000: draw2000,
             3000: draw3000,
             5000: draw5000,
+            0: drawFemtech0,
+            1: drawFemtech1,
         }[points];
 
         if (f) {
@@ -9616,22 +9646,22 @@ var homeState = (function(){
         function(ctx,x,y,frame) {
             atlas.drawPacmanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame));
         });
-    menu.addTextIconButton(getGameName(GAME_MSPACMAN),
-        function() {
-            gameMode = GAME_MSPACMAN;
-            exitTo(preNewGameState);
-        },
-        function(ctx,x,y,frame) {
-            atlas.drawMsPacmanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame));
-        });
-    menu.addTextIconButton(getGameName(GAME_COOKIE),
-        function() {
-            gameMode = GAME_COOKIE;
-            exitTo(preNewGameState);
-        },
-        function(ctx,x,y,frame) {
-            drawCookiemanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame), true);
-        });
+    // menu.addTextIconButton(getGameName(GAME_MSPACMAN),
+    //     function() {
+    //         gameMode = GAME_MSPACMAN;
+    //         exitTo(preNewGameState);
+    //     },
+    //     function(ctx,x,y,frame) {
+    //         atlas.drawMsPacmanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame));
+    //     });
+    // menu.addTextIconButton(getGameName(GAME_COOKIE),
+    //     function() {
+    //         gameMode = GAME_COOKIE;
+    //         exitTo(preNewGameState);
+    //     },
+    //     function(ctx,x,y,frame) {
+    //         drawCookiemanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame), true);
+    //     });
 
     menu.addSpacer(0.5);
     menu.addTextIconButton("LEARN",
