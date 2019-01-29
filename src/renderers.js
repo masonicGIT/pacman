@@ -853,7 +853,9 @@ var initRenderer = function(){
             }
             bgCtx.fillStyle = "#000";
             var i = map.posToIndex(x,y);
-            var size = map.tiles[i] == 'o' ? this.energizerSize : this.pelletSize;
+            // Femtech
+            // var size = map.tiles[i] == 'o' ? this.energizerSize : this.pelletSize;
+            var size = tileSize;
             this.drawCenterTileSq(bgCtx,x,y,size+2);
             if (!isTranslated) {
                 bgCtx.translate(-mapPad,-mapPad);
@@ -872,7 +874,11 @@ var initRenderer = function(){
             else if (tile == '.') {
                 bgCtx.fillStyle = map.pelletColor;
                 bgCtx.translate(0.5, 0.5);
-                this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+                // Femtech
+                // this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+                var tx = x*tileSize+midTile.x;
+                var ty = y*tileSize+midTile.y;
+                atlas.drawFemtechDots(bgCtx,tx,ty,Math.round(Math.random()));
                 bgCtx.translate(-0.5, -0.5);
             }
             else if (tile == 'o') {

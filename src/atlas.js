@@ -286,7 +286,7 @@ var atlas = (function(){
     };
 
     var copyFemtechDots = function(destCtx,x,y,points) {
-        var row = 22;
+        var row = 21;
         var col = {
             0: 0,
             1: 1,
