@@ -158,7 +158,7 @@
 
     // Skip Level
     var canSkip = function() {
-        return isPracticeMode() && 
+        return isPracticeMode() &&
             (state == newGameState ||
             state == readyNewState ||
             state == readyRestartState ||
@@ -205,7 +205,7 @@ var initSwipe = function() {
 
     // minimum distance from anchor before direction is registered
     var r = 4;
-    
+
     var touchStart = function(event) {
         event.preventDefault();
         var fingerCount = event.touches.length;
@@ -264,7 +264,7 @@ var initSwipe = function() {
         // tap to clear input directions
         pacman.clearInputDir(undefined);
     };
-    
+
     // register touch events
     document.onclick = touchTap;
     document.ontouchstart = touchStart;

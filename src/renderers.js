@@ -50,7 +50,7 @@ var initRenderer = function(){
     var scale = 2;        // scale everything by this amount
 
     // (temporary global version of scale just to get things quickly working)
-    renderScale = scale; 
+    renderScale = scale;
 
     var resets = 0;
 
@@ -175,7 +175,7 @@ var initRenderer = function(){
 
             // subtract one from size due to shift done for sprite realignment?
             // (this fixes a bug that leaves unerased artifacts after actors use right-side tunnel
-            ctx.rect(-mapPad,-mapPad,mapWidth-1,mapHeight-1); 
+            ctx.rect(-mapPad,-mapPad,mapWidth-1,mapHeight-1);
 
             ctx.clip();
         },
@@ -320,13 +320,13 @@ var initRenderer = function(){
                 tile.y += dir.y;
             }
             var pixel = { x:tile.x*tileSize+midTile.x, y:tile.y*tileSize+midTile.y };
-            
+
             // dist keeps track of how far we're going along this path, stopping at maxDist
             // distLeft determines how long the last line should be
             var dist = Math.abs(tile.x*tileSize+midTile.x - actor.pixel.x + tile.y*tileSize+midTile.y - actor.pixel.y);
             var maxDist = actorPathLength*tileSize;
             var distLeft;
-            
+
             // add the first line
             ctx.strokeStyle = actor.pathColor;
             ctx.lineWidth = "2.0";
@@ -352,10 +352,10 @@ var initRenderer = function(){
                     map.constrainGhostTurns(tile, openTiles, dirEnum);
                 dirEnum = getTurnClosestToTarget(tile, target, openTiles);
                 setDirFromEnum(dir,dirEnum);
-                
+
                 // if the next tile is our target, determine how mush distance is left and break loop
                 if (tile.x+dir.x == target.x && tile.y+dir.y == target.y) {
-                
+
                     // adjust the distance left to create a smoothly interpolated path end
                     distLeft = actor.getPathDistLeft(pixel, dirEnum);
 
@@ -364,7 +364,7 @@ var initRenderer = function(){
 
                     break;
                 }
-                
+
                 // exit if we're going past the max distance
                 if (dist + tileSize > maxDist) {
                     distLeft = maxDist - dist;
@@ -400,7 +400,7 @@ var initRenderer = function(){
                 ctx.lineTo(px-s*dir.y,py-s*dir.y);
             }
 
-            // draw path    
+            // draw path
             ctx.stroke();
         },
 
@@ -894,7 +894,7 @@ var initRenderer = function(){
 
             ctx.textAlign = "right";
             ctx.fillText("1UP", 6*tileSize, 0);
-            ctx.fillText(practiceMode ? "PRACTICE" : "HIGH SCORE", 19*tileSize, 0);
+            ctx.fillText(practiceMode ? "ENTRAÎNEMENT" : "HIGH SCORE", 19*tileSize, 0);
             //ctx.fillText("2UP", 25*tileSize, 0);
 
             // TODO: player two score

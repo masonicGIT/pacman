@@ -2,7 +2,7 @@
 // Copyright 2012 Shaun Williams
 //
 //  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License Version 3 as 
+//  it under the terms of the GNU General Public License Version 3 as
 //  published by the Free Software Foundation.
 //
 //  This program is distributed in the hope that it will be useful,
@@ -27,7 +27,7 @@
 //   so it may be phased out in future JS versions.  It's not even supported in Internet Explorer.
 //
 //  Object.create does everything that I would use a mutable __proto__ for, but this isn't implemented everywhere yet.
-// 
+//
 //  So instead of the following:
 //
 //      var obj = {
@@ -92,7 +92,7 @@ function audioTrack(url, volume) {
     };
     this.isPaused = function() {
         return audio.paused;
-    }; 
+    };
     this.stop = this.stopLoop;
 
     function audioLoop(noResetTime) {
@@ -109,7 +109,7 @@ function audioTrack(url, volume) {
             if(playPromise) {
                 playPromise.then(function(){}).catch(function(err){});
             }
-        } 
+        }
         catch(err){ console.error(err) }
     }
 }
@@ -175,7 +175,7 @@ var gameMode = GAME_PACMAN;
 var getGameName = (function(){
 
     var names = ["PAC-MAN", "MS PAC-MAN", "COOKIE-MAN","CRAZY OTTO"];
-    
+
     return function(mode) {
         if (mode == undefined) {
             mode = gameMode;
@@ -231,7 +231,7 @@ var getGameDescription = (function(){
             "SHAUN WILLIAMS",
         ],
     ];
-    
+
     return function(mode) {
         if (mode == undefined) {
             mode = gameMode;
@@ -567,7 +567,7 @@ var Map = function(numCols, numRows, tiles) {
     // ghost home location
     this.doorTile = {x:13, y:14};
     this.doorPixel = {
-        x:(this.doorTile.x+1)*tileSize-1, 
+        x:(this.doorTile.x+1)*tileSize-1,
         y:this.doorTile.y*tileSize + midTile.y
     };
     this.homeTopPixel = 17*tileSize;
@@ -711,12 +711,12 @@ Map.prototype.parseWalls = function() {
 
            Since we parse the tiles in row major order, we will always start
            walking along the wall at the leftmost tile of its topmost row.  We
-           then proceed walking to the right.  
+           then proceed walking to the right.
 
            When facing the direction of the walk at each tile, the outline will
            hug the left side of the tile unless there is a walkable tile to the
            left.  In that case, there will be a padding distance applied.
-           
+
         */
         var getStartPoint = function(tx,ty,dirEnum) {
             var dir = {};
@@ -736,7 +736,7 @@ Map.prototype.parseWalls = function() {
             };
         };
         while (true) {
-            
+
             visited[toIndex(tx,ty)] = true;
 
             // determine start point
@@ -845,7 +845,7 @@ Map.prototype.allDotsEaten = function() {
 
 // create a record of tunnel locations
 Map.prototype.parseTunnels = (function(){
-    
+
     // starting from x,y and increment x by dx...
     // determine where the tunnel entrance begins
     var getTunnelEntrance = function(x,y,dx) {
@@ -886,7 +886,7 @@ Map.prototype.teleport = function(actor){
 };
 
 Map.prototype.posToIndex = function(x,y) {
-    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows) 
+    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows)
         return x+y*this.numCols;
 };
 
@@ -899,7 +899,7 @@ Map.prototype.isTunnelTile = function(x,y) {
 // retrieves tile character at given coordinate
 // extended to include offscreen tunnel space
 Map.prototype.getTile = function(x,y) {
-    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows) 
+    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows)
         return this.currentTiles[this.posToIndex(x,y)];
     if ((x<0 || x>=this.numCols) && (this.isTunnelTile(x,y-1) || this.isTunnelTile(x,y+1)))
         return '|';
@@ -1196,7 +1196,7 @@ var mapgen = (function(){
 
             // examine an adjacent empty cell
             if (cell.next[i] && !cell.next[i].filled) {
-                
+
                 // only open if the cell to the left of it is filled
                 if (cell.next[i].next[LEFT] && !cell.next[i].next[LEFT].filled) {
                 }
@@ -1227,7 +1227,7 @@ var mapgen = (function(){
         };
 
         var gen = function() {
-        
+
             var cell;      // cell at the center of growth (open cells are chosen around this cell)
             var newCell;   // most recent cell filled
             var firstCell; // the starting cell of the current group
@@ -1411,7 +1411,7 @@ var mapgen = (function(){
                                     }
                                     c.connect[RIGHT] = c.next[DOWN].connect[RIGHT] = true;
                                 }
-                                
+
                             }
                             else if (size == 3 || size == 4) {
 
@@ -1491,7 +1491,7 @@ var mapgen = (function(){
 
                 //  _
                 // |_
-                // 
+                //
                 // or
                 //  _
                 //  _|
@@ -1591,7 +1591,7 @@ var mapgen = (function(){
                 for (y0=y; y0>=0; y0--) {
                     c = cells[x+y0*cols];
                     c2 = c.next[RIGHT]
-                    if ((!c.connect[UP] || cellIsCrossCenter(c)) && 
+                    if ((!c.connect[UP] || cellIsCrossCenter(c)) &&
                         (!c2.connect[UP] || cellIsCrossCenter(c2))) {
                         break;
                     }
@@ -1662,7 +1662,7 @@ var mapgen = (function(){
             var isHori = function(x,y) {
                 var q1 = cells[x+y*cols].connect;
                 var q2 = cells[x+1+y*cols].connect;
-                return !q1[UP] && !q1[DOWN] && (x==0 || !q1[LEFT]) && q1[RIGHT] && 
+                return !q1[UP] && !q1[DOWN] && (x==0 || !q1[LEFT]) && q1[RIGHT] &&
                        !q2[UP] && !q2[DOWN] && q2[LEFT] && !q2[RIGHT];
             };
             var isVert = function(x,y) {
@@ -1673,7 +1673,7 @@ var mapgen = (function(){
                     return !q1[LEFT] && !q1[UP] && !q1[DOWN] &&
                            !q2[LEFT] && !q2[UP] && !q2[DOWN];
                 }
-                return !q1[LEFT] && !q1[RIGHT] && !q1[UP] && q1[DOWN] && 
+                return !q1[LEFT] && !q1[RIGHT] && !q1[UP] && q1[DOWN] &&
                        !q2[LEFT] && !q2[RIGHT] && q2[UP] && !q2[DOWN];
             };
             var x,y;
@@ -2370,7 +2370,7 @@ var mapgen = (function(){
             for (i=0; i<28*36; i++) {
                 d = graph[i];
                 if (d && !d.completed) {
-                    if (d.dist < min_dist) { 
+                    if (d.dist < min_dist) {
                         next_node = d;
                         min_dist = d.dist;
                     }
@@ -3102,7 +3102,7 @@ var initRenderer = function(){
     var scale = 2;        // scale everything by this amount
 
     // (temporary global version of scale just to get things quickly working)
-    renderScale = scale; 
+    renderScale = scale;
 
     var resets = 0;
 
@@ -3227,7 +3227,7 @@ var initRenderer = function(){
 
             // subtract one from size due to shift done for sprite realignment?
             // (this fixes a bug that leaves unerased artifacts after actors use right-side tunnel
-            ctx.rect(-mapPad,-mapPad,mapWidth-1,mapHeight-1); 
+            ctx.rect(-mapPad,-mapPad,mapWidth-1,mapHeight-1);
 
             ctx.clip();
         },
@@ -3372,13 +3372,13 @@ var initRenderer = function(){
                 tile.y += dir.y;
             }
             var pixel = { x:tile.x*tileSize+midTile.x, y:tile.y*tileSize+midTile.y };
-            
+
             // dist keeps track of how far we're going along this path, stopping at maxDist
             // distLeft determines how long the last line should be
             var dist = Math.abs(tile.x*tileSize+midTile.x - actor.pixel.x + tile.y*tileSize+midTile.y - actor.pixel.y);
             var maxDist = actorPathLength*tileSize;
             var distLeft;
-            
+
             // add the first line
             ctx.strokeStyle = actor.pathColor;
             ctx.lineWidth = "2.0";
@@ -3404,10 +3404,10 @@ var initRenderer = function(){
                     map.constrainGhostTurns(tile, openTiles, dirEnum);
                 dirEnum = getTurnClosestToTarget(tile, target, openTiles);
                 setDirFromEnum(dir,dirEnum);
-                
+
                 // if the next tile is our target, determine how mush distance is left and break loop
                 if (tile.x+dir.x == target.x && tile.y+dir.y == target.y) {
-                
+
                     // adjust the distance left to create a smoothly interpolated path end
                     distLeft = actor.getPathDistLeft(pixel, dirEnum);
 
@@ -3416,7 +3416,7 @@ var initRenderer = function(){
 
                     break;
                 }
-                
+
                 // exit if we're going past the max distance
                 if (dist + tileSize > maxDist) {
                     distLeft = maxDist - dist;
@@ -3452,7 +3452,7 @@ var initRenderer = function(){
                 ctx.lineTo(px-s*dir.y,py-s*dir.y);
             }
 
-            // draw path    
+            // draw path
             ctx.stroke();
         },
 
@@ -3946,7 +3946,7 @@ var initRenderer = function(){
 
             ctx.textAlign = "right";
             ctx.fillText("1UP", 6*tileSize, 0);
-            ctx.fillText(practiceMode ? "PRACTICE" : "HIGH SCORE", 19*tileSize, 0);
+            ctx.fillText(practiceMode ? "ENTRAÎNEMENT" : "HIGH SCORE", 19*tileSize, 0);
             //ctx.fillText("2UP", 25*tileSize, 0);
 
             // TODO: player two score
@@ -4682,15 +4682,15 @@ var inGameMenu = (function() {
 
     // confirms a menu action
     var confirmMenu = new Menu("QUESTION?",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    confirmMenu.addTextButton("YES", function() {
+    confirmMenu.addTextButton("OUI", function() {
         confirmMenu.disable();
         confirmMenu.onConfirm();
     });
-    confirmMenu.addTextButton("NO", function() {
+    confirmMenu.addTextButton("NON", function() {
         confirmMenu.disable();
         showMainMenu();
     });
-    confirmMenu.addTextButton("CANCEL", function() {
+    confirmMenu.addTextButton("ANNULER", function() {
         confirmMenu.disable();
         showMainMenu();
     });
@@ -4704,20 +4704,20 @@ var inGameMenu = (function() {
     };
 
     // regular menu
-    var menu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    menu.addTextButton("RESUME", function() {
+    var menu = new Menu("PAUSE",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    menu.addTextButton("REPRENDRE", function() {
         menu.disable();
     });
-    menu.addTextButton("QUIT", function() {
-        showConfirm("QUIT GAME?", function() {
+    menu.addTextButton("ABANDONNER", function() {
+        showConfirm("ABANDONNER LA PARTIE?", function() {
             switchState(homeState, 60);
         });
     });
     menu.backButton = menu.buttons[0];
 
     // practice menu
-    var practiceMenu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    practiceMenu.addTextButton("RESUME", function() {
+    var practiceMenu = new Menu("PAUSE",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    practiceMenu.addTextButton("REPRENDRE", function() {
         hideMainMenu();
         vcr.onHudEnable();
     });
@@ -4727,17 +4727,17 @@ var inGameMenu = (function() {
             switchState(readyNewState, 60);
         });
     });
-    practiceMenu.addTextButton("SKIP LEVEL", function() {
-        showConfirm("SKIP LEVEL?", function() {
+    practiceMenu.addTextButton("PASSER LE LEVEL", function() {
+        showConfirm("PASSER LE LEVEL?", function() {
             switchState(readyNewState, 60);
         });
     });
-    practiceMenu.addTextButton("CHEATS", function() {
+    practiceMenu.addTextButton("TRICHES", function() {
         practiceMenu.disable();
         cheatsMenu.enable();
     });
-    practiceMenu.addTextButton("QUIT", function() {
-        showConfirm("QUIT GAME?", function() {
+    practiceMenu.addTextButton("ABANDONNER", function() {
+        showConfirm("ABANDONNER LA PARTIE?", function() {
             switchState(homeState, 60);
             clearCheats();
             vcr.reset();
@@ -4746,7 +4746,7 @@ var inGameMenu = (function() {
     practiceMenu.backButton = practiceMenu.buttons[0];
 
     // cheats menu
-    var cheatsMenu = new Menu("CHEATS",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var cheatsMenu = new Menu("TRICHES",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     cheatsMenu.addToggleTextButton("INVINCIBLE",
         function() {
             return pacman.invincible;
@@ -4761,7 +4761,7 @@ var inGameMenu = (function() {
         function(on) {
             turboMode = on;
         });
-    cheatsMenu.addToggleTextButton("SHOW TARGETS",
+    cheatsMenu.addToggleTextButton("MONTRER LES CIBLES",
         function() {
             return blinky.isDrawTarget;
         },
@@ -4770,7 +4770,7 @@ var inGameMenu = (function() {
                 ghosts[i].isDrawTarget = on;
             }
         });
-    cheatsMenu.addToggleTextButton("SHOW PATHS",
+    cheatsMenu.addToggleTextButton("MONTRER LES CHEMINS",
         function() {
             return blinky.isDrawPath;
         },
@@ -4780,7 +4780,7 @@ var inGameMenu = (function() {
             }
         });
     cheatsMenu.addSpacer(1);
-    cheatsMenu.addTextButton("BACK", function() {
+    cheatsMenu.addTextButton("RETOUR", function() {
         cheatsMenu.disable();
         practiceMenu.enable();
     });
@@ -5299,7 +5299,7 @@ var drawPacPoints = (function(){
         draw0(-1,-3);
         draw0(4,-3);
     };
-    
+
     var draw400 = function() {
         draw4(-7,-3);
         draw0(-1,-3);
@@ -5330,7 +5330,7 @@ var drawPacPoints = (function(){
         draw0(1,-3);
         draw0(6,-3);
     };
-    
+
     var draw1600 = function() {
         draw1narrow(-7,-3);
         draw6(-5,-3);
@@ -5708,7 +5708,7 @@ var drawMonsterSprite = (function(){
         ctx.translate(1,0);
         drawRight0();
     };
-    
+
     var drawLeft1 = function() {
         ctx.scale(-1,1);
         ctx.translate(1,0);
@@ -7559,7 +7559,7 @@ Actor.prototype.update = function(j) {
 
     // get number of steps to advance in this frame
     var numSteps = this.getNumSteps();
-    if (j >= numSteps) 
+    if (j >= numSteps)
         return;
 
     // request to advance one step, and increment count if step taken
@@ -7880,7 +7880,7 @@ Ghost.prototype.homeSteer = (function(){
     };
 
     // return a function to execute appropriate steering function for a given ghost
-    return function() { 
+    return function() {
         var f = steerFuncs[this.mode];
         if (f)
             f.apply(this);
@@ -7914,7 +7914,7 @@ Ghost.prototype.steer = function() {
     this.homeSteer();
 
     // current opposite direction enum
-    oppDirEnum = rotateAboutFace(this.dirEnum); 
+    oppDirEnum = rotateAboutFace(this.dirEnum);
 
     // only execute rest of the steering logic if we're pursuing a target tile
     if (this.mode != GHOST_OUTSIDE && this.mode != GHOST_GOING_HOME) {
@@ -8130,7 +8130,7 @@ Player.prototype.getAnimFrame = function(frame) {
             frame = 1; // hack to force this frame when dead
     }
     if (gameMode != GAME_OTTO) {
-        if (frame == 3) 
+        if (frame == 3)
             frame = 1;
     }
     return frame;
@@ -8649,7 +8649,7 @@ var ghostCommander = (function() {
     return {
         save: save,
         load: load,
-        reset: function() { 
+        reset: function() {
             command = GHOST_CMD_SCATTER;
             frame = 0;
         },
@@ -8666,7 +8666,7 @@ var ghostCommander = (function() {
             }
         },
         getCommand: function() {
-            return command; 
+            return command;
         },
         setCommand: function(cmd) {
             command = cmd;
@@ -8975,7 +8975,7 @@ var energizer = (function() {
                     count++;
             }
         },
-        activate: function() { 
+        activate: function() {
             audio.ghostNormalMove.stopLoop();
             audio.ghostTurnToBlue.startLoop();
             active = true;
@@ -8989,7 +8989,7 @@ var energizer = (function() {
             }
         },
         isActive: function() { return active; },
-        isFlash: function() { 
+        isFlash: function() {
             var i = Math.floor((getDuration()-count)/flashInterval);
             return (i<=2*getFlashes()-1) ? (i%2==0) : false;
         },
@@ -9086,7 +9086,7 @@ var PacFruit = function() {
 
     this.order = [
         0,  // level 1
-        1,  // level 2 
+        1,  // level 2
         2,  // level 3
         2,  // level 4
         3,  // level 5
@@ -9337,7 +9337,7 @@ MsPacFruit.prototype = newChildObject(BaseFruit.prototype, {
         }
         this.pathMode =     this.savedPathMode[t];
         this.frame =        this.savedFrame[t];
-        this.numFrames =    this.savedNumFrames[t]; 
+        this.numFrames =    this.savedNumFrames[t];
         this.path =         this.savedPath[t];
     },
 });
@@ -9380,7 +9380,7 @@ var executive = (function(){
             window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
                                        || window[vendors[x]+'CancelRequestAnimationFrame'];
         }
-     
+
         if (!window.requestAnimationFrame)
             window.requestAnimationFrame = function(callback, element) {
                 var currTime = new Date().getTime();
@@ -9390,7 +9390,7 @@ var executive = (function(){
                 lastTime = currTime + timeToCall;
                 return id;
             };
-     
+
         if (!window.cancelAnimationFrame)
             window.cancelAnimationFrame = function(id) {
                 clearTimeout(id);
@@ -9426,7 +9426,7 @@ var executive = (function(){
             fps = frames / seconds;
         };
     })();
-        
+
 
     var reqFrame; // id of requestAnimationFrame object
     var tick = function(now) {
@@ -9590,7 +9590,7 @@ var homeState = (function(){
         menu.disable();
     };
 
-    var menu = new Menu("CHOOSE A GAME",2*tileSize,0*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var menu = new Menu("DÉMARRER UNE PARTIE",2*tileSize,0*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     var getIconAnimFrame = function(frame) {
         frame = Math.floor(frame/3)+1;
         frame %= 4;
@@ -9630,7 +9630,7 @@ var homeState = (function(){
         });
 
     menu.addSpacer(0.5);
-    menu.addTextIconButton("LEARN",
+    menu.addTextIconButton("ENTRAÎNEMENT",
         function() {
             exitTo(learnState);
         },
@@ -9674,9 +9674,9 @@ var learnState = (function(){
         clearCheats();
     };
 
-    var menu = new Menu("LEARN", 2*tileSize,-tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var menu = new Menu("ENTRAÎNEMENT", 2*tileSize,-tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     menu.addSpacer(7);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -9890,7 +9890,7 @@ var gameTitleState = (function() {
     orangeBtn.setIcon(function (ctx,x,y,frame) {
         getGhostDrawFunc()(ctx,x,y,Math.floor(frame/6)%2,DIR_LEFT,undefined,undefined,undefined,clyde.color);
     });
-    
+
     var forEachCharBtn = function(callback) {
         callback(yellowBtn);
         callback(redBtn);
@@ -9955,37 +9955,37 @@ var preNewGameState = (function() {
     var menu = new Menu("",2*tileSize,0,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
 
     menu.addSpacer(2);
-    menu.addTextButton("PLAY",
-        function() { 
+    menu.addTextButton("JOUER",
+        function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
             exitTo(newGameState, 60);
         });
-    menu.addTextButton("PLAY TURBO",
-        function() { 
+    menu.addTextButton("JOUER TURBO",
+        function() {
             practiceMode = false;
             turboMode = true;
             newGameState.setStartLevel(1);
             exitTo(newGameState, 60);
         });
-    menu.addTextButton("PRACTICE",
-        function() { 
+    menu.addTextButton("ENTRAÎNEMENT",
+        function() {
             practiceMode = true;
             turboMode = false;
             exitTo(selectActState);
         });
     menu.addSpacer(0.5);
-    menu.addTextButton("CUTSCENES",
-        function() { 
+    menu.addTextButton("SCÈNES COUPÉES",
+        function() {
             exitTo(cutSceneMenuState);
         });
-    menu.addTextButton("ABOUT",
-        function() { 
+    menu.addTextButton("À PROPOS",
+        function() {
             exitTo(aboutGameState);
         });
     menu.addSpacer(0.5);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -10074,7 +10074,7 @@ var selectActState = (function() {
             range = getActRange(act+i);
             menu.addTextIconButton("LEVELS "+range[0]+"-"+range[1],
                 (function(j){
-                    return function() { 
+                    return function() {
                         chooseLevelFromAct(act+j);
                     };
                 })(i),
@@ -10111,7 +10111,7 @@ var selectActState = (function() {
             function() {
                 scrollToAct(act+numActs);
             });
-        menu.addTextButton("BACK",
+        menu.addTextButton("RETOUR",
             function() {
                 exitTo(preNewGameState);
             });
@@ -10171,7 +10171,7 @@ var selectLevelState = (function() {
             for (i=range[0]; i<=range[1]; i++) {
                 menu.addTextIconButton("LEVEL "+i,
                     (function(j){
-                        return function() { 
+                        return function() {
                             playLevel(j);
                         };
                     })(i),
@@ -10186,7 +10186,7 @@ var selectLevelState = (function() {
             }
         }
         menu.addSpacer(0.5);
-        menu.addTextButton("BACK",
+        menu.addTextButton("RETOUR",
             function() {
                 exitTo(selectActState);
             });
@@ -10232,7 +10232,7 @@ var aboutGameState = (function() {
     var menu = new Menu("",2*tileSize,0,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
 
     menu.addSpacer(8);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(preNewGameState);
         });
@@ -10299,19 +10299,19 @@ var cutSceneMenuState = (function() {
 
     menu.addSpacer(2);
     menu.addTextButton("CUTSCENE 1",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][0]);
         });
     menu.addTextButton("CUTSCENE 2",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][1]);
         });
     menu.addTextButton("CUTSCENE 3",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][2]);
         });
     menu.addSpacer();
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(preNewGameState);
         });
@@ -10349,7 +10349,7 @@ var scoreState = (function(){
     };
 
     var menu = new Menu("", 2*tileSize,mapHeight-6*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -10585,7 +10585,7 @@ var aboutState = (function(){
         function() {
             window.open("https://github.com/shaunew/Pac-Man");
         });
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -10689,7 +10689,7 @@ var newGameState = (function() {
                 state = readyNewState;
                 renderer.drawMap();
             }
-            else 
+            else
                 frames++;
         },
     };
@@ -10702,7 +10702,7 @@ var newGameState = (function() {
 var readyState =  (function(){
     var frames;
     var duration = 4;
-    
+
     return {
         init: function() {
             audio.startMusic.play();
@@ -10787,7 +10787,7 @@ var readyRestartState = newChildObject(readyState, {
 // (state when playing the game)
 
 var playState = {
-    init: function() { 
+    init: function() {
         if (practiceMode) {
             vcr.reset();
         }
@@ -10825,7 +10825,7 @@ var playState = {
         return false;
     },
     update: function() {
-        
+
         if (vcr.isSeeking()) {
             vcr.seek();
         }
@@ -10857,7 +10857,7 @@ var playState = {
                     }
                     ghosts[0].playSounds();
             }
-            
+
             if (!skip) {
 
                 // update counters
@@ -10878,7 +10878,7 @@ var playState = {
 
                     // finish level if all dots have been eaten
                     if (map.allDotsEaten()) {
-                        //this.draw(); 
+                        //this.draw();
                         switchState(finishState);
                         audio.extend.play();
                         break;
@@ -10929,7 +10929,7 @@ var scriptState = (function(){
             }
 
             // call the last trigger's update function
-            if (this.updateFunc) 
+            if (this.updateFunc)
                 this.updateFunc(this.triggerFrame);
 
             this.frames++;
@@ -10937,7 +10937,7 @@ var scriptState = (function(){
         },
         draw: function() {
             // call the last trigger's draw function
-            if (this.drawFunc) 
+            if (this.drawFunc)
                 this.drawFunc(this.triggerFrame);
         },
     };
@@ -10992,7 +10992,7 @@ var seekableScriptState = newChildObject(scriptState, {
 // (state when player has lost a life)
 
 var deadState = (function() {
-    
+
     // this state will always have these drawn
     var commonDraw = function() {
         renderer.blitMap();
@@ -11009,7 +11009,7 @@ var deadState = (function() {
                 },
                 update: function() {
                     var i;
-                    for (i=0; i<4; i++) 
+                    for (i=0; i<4; i++)
                         actors[i].frames++; // keep animating ghosts
                 },
                 draw: function() {
@@ -11074,7 +11074,7 @@ var finishState = (function(){
         renderer.drawPlayer();
         renderer.endMapClip();
     };
-    
+
     // flash the floor and draw
     var flashFloorAndDraw = function(on) {
         renderer.setLevelFlash(on);
@@ -11300,7 +11300,7 @@ var overState = (function() {
 
     // Skip Level
     var canSkip = function() {
-        return isPracticeMode() && 
+        return isPracticeMode() &&
             (state == newGameState ||
             state == readyNewState ||
             state == readyRestartState ||
@@ -11347,7 +11347,7 @@ var initSwipe = function() {
 
     // minimum distance from anchor before direction is registered
     var r = 4;
-    
+
     var touchStart = function(event) {
         event.preventDefault();
         var fingerCount = event.touches.length;
@@ -11406,7 +11406,7 @@ var initSwipe = function() {
         // tap to clear input directions
         pacman.clearInputDir(undefined);
     };
-    
+
     // register touch events
     document.onclick = touchTap;
     document.ontouchstart = touchStart;
@@ -11631,7 +11631,7 @@ var mspacmanCutscene1 = (function() {
             pac.setDir(DIR_RIGHT);
             mspac.setPos(232, 180);
             mspac.setDir(DIR_LEFT);
-            
+
             // initial ghost states
             inky.frames = 0;
             inky.mode = GHOST_OUTSIDE;
@@ -11724,7 +11724,7 @@ var mspacmanCutscene1 = (function() {
                 var PLAYER_RAMP = 1;
                 var PLAYER_CLIMB = 2;
                 var PLAYER_MEET = 3;
-                     
+
                 return {
                     init: function() {
                         // reset frames
@@ -11953,7 +11953,7 @@ var mspacmanCutscene2 = (function() {
             // set steering functions
             pac.steer = function(){};
             mspac.steer = function(){};
-            
+
             backupCheats();
             clearCheats();
         },
@@ -12248,7 +12248,7 @@ var cookieCutscene2 = (function() {
             pac.setDir(DIR_RIGHT);
             mspac.setPos(232, 180);
             mspac.setDir(DIR_LEFT);
-            
+
             // initial ghost states
             inky.frames = 0;
             inky.mode = GHOST_OUTSIDE;
@@ -12341,7 +12341,7 @@ var cookieCutscene2 = (function() {
                 var PLAYER_RAMP = 1;
                 var PLAYER_CLIMB = 2;
                 var PLAYER_MEET = 3;
-                     
+
                 return {
                     init: function() {
                         // reset frames
@@ -12899,15 +12899,15 @@ mapMsPacman1.wallStrokeColor = "#FF0000";
 mapMsPacman1.pelletColor = "#dedeff";
 mapMsPacman1.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 164, "x": 228 }, "path": "<<<<vvv<<<<<<<<<^^^" }, 
-                 { "start": { "y": 164, "x": -4 }, "path": ">>>>vvvvvv>>>>>>>>>>>>>>>^^^<<<^^^" }, 
-                 { "start": { "y": 92, "x": -4 }, "path": ">>>>^^^^>>>vvvv>>>vvv>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 164, "x": 228 }, "path": "<<<<vvv<<<<<<<<<^^^" },
+                 { "start": { "y": 164, "x": -4 }, "path": ">>>>vvvvvv>>>>>>>>>>>>>>>^^^<<<^^^" },
+                 { "start": { "y": 92, "x": -4 }, "path": ">>>>^^^^>>>vvvv>>>vvv>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 92, "x": 228 }, "path": "<<<<vvvvvvvvv<<<^^^<<<vvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>>>>>>>^^^>>>>" }, 
-                 { "path": "<<<<vvv<<<<<<<<<^^^<<<<" }, 
-                 { "path": "<<<<<<<^^^^^^<<<<<<^^^<<<<" }, 
+                 { "path": "<vvv>>>>>>>>>^^^>>>>" },
+                 { "path": "<<<<vvv<<<<<<<<<^^^<<<<" },
+                 { "path": "<<<<<<<^^^^^^<<<<<<^^^<<<<" },
                  { "path": "<vvv>>>>>>>>>^^^^^^^^^^^^>>>>" }
              ]
          };
@@ -12958,15 +12958,15 @@ mapMsPacman2.wallStrokeColor = "#dedeff";
 mapMsPacman2.pelletColor = "#ffff00";
 mapMsPacman2.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 212, "x": 228 }, "path": "<<<<^^^<<<<<<<<^^^<" }, 
-                 { "start": { "y": 212, "x": -4 }, "path": ">>>>^^^>>>>>>>>vvv>>>>>^^^^^^<" }, 
-                 { "start": { "y": 36, "x": -4 }, "path": ">>>>>>>vvv>>>vvvvvvv>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 212, "x": 228 }, "path": "<<<<^^^<<<<<<<<^^^<" },
+                 { "start": { "y": 212, "x": -4 }, "path": ">>>>^^^>>>>>>>>vvv>>>>>^^^^^^<" },
+                 { "start": { "y": 36, "x": -4 }, "path": ">>>>>>>vvv>>>vvvvvvv>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 36, "x": 228 }, "path": "<<<<<<<vvv<<<vvvvvvvvvvvvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "vvv>>>>>>>>vvv>>>>" }, 
-                 { "path": "vvvvvv<<<<<^^^<<<<<<<<vvv<<<<" }, 
-                 { "path": "<<<<<<<^^^^^^^^^^^^^<<<^^^<<<<<<<" }, 
+                 { "path": "vvv>>>>>>>>vvv>>>>" },
+                 { "path": "vvvvvv<<<<<^^^<<<<<<<<vvv<<<<" },
+                 { "path": "<<<<<<<^^^^^^^^^^^^^<<<^^^<<<<<<<" },
                  { "path": "vvv>>>>>^^^^^^^^^^>>>>>^^^^^^<<<<<^^^>>>>>>>" }
              ]
          };
@@ -13017,15 +13017,15 @@ mapMsPacman3.wallStrokeColor = "#dedeff";
 mapMsPacman3.pelletColor = "#ff0000";
 mapMsPacman3.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 100, "x": 228 }, "path": "<<<<<vv<<<<<vvvvvv<<<" }, 
-                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" }, 
-                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 100, "x": 228 }, "path": "<<<<<vv<<<<<vvvvvv<<<" },
+                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" },
+                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 100, "x": 228 }, "path": "<<vvvvv<<<vvv<<<<<<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>vvv>>>^^^>>>>>^^^^^^^^^^^>>" }, 
-                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" }, 
-                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" }, 
+                 { "path": "<vvv>>>vvv>>>^^^>>>>>^^^^^^^^^^^>>" },
+                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" },
+                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" },
                  { "path": "<vvv>>>vvv>>>^^^^^^<<<^^^^^^>>>>>^^>>>>>" }
              ]
          };
@@ -13084,15 +13084,15 @@ mapMsPacman4.wallStrokeColor = "#ffb851";
 mapMsPacman4.pelletColor = "#dedeff";
 mapMsPacman4.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 156, "x": 228 }, "path": "<<<<vv<<<vv<<<<<<^^^" }, 
-                 { "start": { "y": 156, "x": -4 }, "path": ">>>>vv>>>vv>>>>>>vvv>>>^^^^^^" }, 
-                 { "start": { "y": 132, "x": -4 }, "path": ">>>>^^^^^>>>^^^>>>vvv>>>vvv>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 156, "x": 228 }, "path": "<<<<vv<<<vv<<<<<<^^^" },
+                 { "start": { "y": 156, "x": -4 }, "path": ">>>>vv>>>vv>>>>>>vvv>>>^^^^^^" },
+                 { "start": { "y": 132, "x": -4 }, "path": ">>>>^^^^^>>>^^^>>>vvv>>>vvv>>>>>>vvvvvv<<<" },
                  { "start": { "y": 132, "x": 228 }, "path": "<<<<^^<<<vvv<<<vvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>>>>^^>>>^^>>>>" }, 
-                 { "path": "<<<<vvv<<<<<<^^<<<^^<<<<" }, 
-                 { "path": "<<<<<<<^^^<<<^^^<<<vv<<<<" }, 
+                 { "path": "<vvv>>>>>>^^>>>^^>>>>" },
+                 { "path": "<<<<vvv<<<<<<^^<<<^^<<<<" },
+                 { "path": "<<<<<<<^^^<<<^^^<<<vv<<<<" },
                  { "path": "<vvv>>>>>>^^^^^^^^^>>>vv>>>>" }
              ]
          };
@@ -13135,11 +13135,11 @@ var vcr = (function() {
     ];
 
     // This is the number of "footprint" frames to display along the seek direction around a player
-    // to create the rewind/forward blurring.  
+    // to create the rewind/forward blurring.
     // This is also inversely used to determine the number of footprint frames to display OPPOSITE the seek direction
     // around a player.
     //
-    // For example: 
+    // For example:
     //   nextFrames = speedPrints[speedIndex];
     //   prevFrames = speedPrints[speedCount-1-speedIndex];
     var speedPrints = [
@@ -13488,7 +13488,7 @@ var vcr = (function() {
 
             var backupAlpha = ctx.globalAlpha;
             ctx.globalAlpha = 0.2;
-            
+
             var t = start;
             var step = speedPrintStep[speedIndex];
             if (start > end) {

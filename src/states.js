@@ -88,7 +88,7 @@ var homeState = (function(){
         menu.disable();
     };
 
-    var menu = new Menu("CHOOSE A GAME",2*tileSize,0*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var menu = new Menu("DÉMARRER UNE PARTIE",2*tileSize,0*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     var getIconAnimFrame = function(frame) {
         frame = Math.floor(frame/3)+1;
         frame %= 4;
@@ -128,7 +128,7 @@ var homeState = (function(){
         });
 
     menu.addSpacer(0.5);
-    menu.addTextIconButton("LEARN",
+    menu.addTextIconButton("ENTRAINEMENT",
         function() {
             exitTo(learnState);
         },
@@ -172,9 +172,9 @@ var learnState = (function(){
         clearCheats();
     };
 
-    var menu = new Menu("LEARN", 2*tileSize,-tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var menu = new Menu("ENTRAINEMENT", 2*tileSize,-tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     menu.addSpacer(7);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -388,7 +388,7 @@ var gameTitleState = (function() {
     orangeBtn.setIcon(function (ctx,x,y,frame) {
         getGhostDrawFunc()(ctx,x,y,Math.floor(frame/6)%2,DIR_LEFT,undefined,undefined,undefined,clyde.color);
     });
-    
+
     var forEachCharBtn = function(callback) {
         callback(yellowBtn);
         callback(redBtn);
@@ -453,37 +453,37 @@ var preNewGameState = (function() {
     var menu = new Menu("",2*tileSize,0,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
 
     menu.addSpacer(2);
-    menu.addTextButton("PLAY",
-        function() { 
+    menu.addTextButton("JOUER",
+        function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
             exitTo(newGameState, 60);
         });
-    menu.addTextButton("PLAY TURBO",
-        function() { 
+    menu.addTextButton("JOUER EN TURBO",
+        function() {
             practiceMode = false;
             turboMode = true;
             newGameState.setStartLevel(1);
             exitTo(newGameState, 60);
         });
-    menu.addTextButton("PRACTICE",
-        function() { 
+    menu.addTextButton("ENTRAÎNEMENT",
+        function() {
             practiceMode = true;
             turboMode = false;
             exitTo(selectActState);
         });
     menu.addSpacer(0.5);
-    menu.addTextButton("CUTSCENES",
-        function() { 
+    menu.addTextButton("SCÈNES COUPÉES",
+        function() {
             exitTo(cutSceneMenuState);
         });
-    menu.addTextButton("ABOUT",
-        function() { 
+    menu.addTextButton("À PROPOS",
+        function() {
             exitTo(aboutGameState);
         });
     menu.addSpacer(0.5);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -572,7 +572,7 @@ var selectActState = (function() {
             range = getActRange(act+i);
             menu.addTextIconButton("LEVELS "+range[0]+"-"+range[1],
                 (function(j){
-                    return function() { 
+                    return function() {
                         chooseLevelFromAct(act+j);
                     };
                 })(i),
@@ -609,7 +609,7 @@ var selectActState = (function() {
             function() {
                 scrollToAct(act+numActs);
             });
-        menu.addTextButton("BACK",
+        menu.addTextButton("RETOUR",
             function() {
                 exitTo(preNewGameState);
             });
@@ -669,7 +669,7 @@ var selectLevelState = (function() {
             for (i=range[0]; i<=range[1]; i++) {
                 menu.addTextIconButton("LEVEL "+i,
                     (function(j){
-                        return function() { 
+                        return function() {
                             playLevel(j);
                         };
                     })(i),
@@ -684,7 +684,7 @@ var selectLevelState = (function() {
             }
         }
         menu.addSpacer(0.5);
-        menu.addTextButton("BACK",
+        menu.addTextButton("RETOUR",
             function() {
                 exitTo(selectActState);
             });
@@ -730,7 +730,7 @@ var aboutGameState = (function() {
     var menu = new Menu("",2*tileSize,0,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
 
     menu.addSpacer(8);
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(preNewGameState);
         });
@@ -797,19 +797,19 @@ var cutSceneMenuState = (function() {
 
     menu.addSpacer(2);
     menu.addTextButton("CUTSCENE 1",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][0]);
         });
     menu.addTextButton("CUTSCENE 2",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][1]);
         });
     menu.addTextButton("CUTSCENE 3",
-        function() { 
+        function() {
             exitToCutscene(cutscenes[gameMode][2]);
         });
     menu.addSpacer();
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(preNewGameState);
         });
@@ -847,7 +847,7 @@ var scoreState = (function(){
     };
 
     var menu = new Menu("", 2*tileSize,mapHeight-6*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -1083,7 +1083,7 @@ var aboutState = (function(){
         function() {
             window.open("https://github.com/shaunew/Pac-Man");
         });
-    menu.addTextButton("BACK",
+    menu.addTextButton("RETOUR",
         function() {
             exitTo(homeState);
         });
@@ -1187,7 +1187,7 @@ var newGameState = (function() {
                 state = readyNewState;
                 renderer.drawMap();
             }
-            else 
+            else
                 frames++;
         },
     };
@@ -1200,7 +1200,7 @@ var newGameState = (function() {
 var readyState =  (function(){
     var frames;
     var duration = 4;
-    
+
     return {
         init: function() {
             audio.startMusic.play();
@@ -1285,7 +1285,7 @@ var readyRestartState = newChildObject(readyState, {
 // (state when playing the game)
 
 var playState = {
-    init: function() { 
+    init: function() {
         if (practiceMode) {
             vcr.reset();
         }
@@ -1323,7 +1323,7 @@ var playState = {
         return false;
     },
     update: function() {
-        
+
         if (vcr.isSeeking()) {
             vcr.seek();
         }
@@ -1355,7 +1355,7 @@ var playState = {
                     }
                     ghosts[0].playSounds();
             }
-            
+
             if (!skip) {
 
                 // update counters
@@ -1376,7 +1376,7 @@ var playState = {
 
                     // finish level if all dots have been eaten
                     if (map.allDotsEaten()) {
-                        //this.draw(); 
+                        //this.draw();
                         switchState(finishState);
                         audio.extend.play();
                         break;
@@ -1427,7 +1427,7 @@ var scriptState = (function(){
             }
 
             // call the last trigger's update function
-            if (this.updateFunc) 
+            if (this.updateFunc)
                 this.updateFunc(this.triggerFrame);
 
             this.frames++;
@@ -1435,7 +1435,7 @@ var scriptState = (function(){
         },
         draw: function() {
             // call the last trigger's draw function
-            if (this.drawFunc) 
+            if (this.drawFunc)
                 this.drawFunc(this.triggerFrame);
         },
     };
@@ -1490,7 +1490,7 @@ var seekableScriptState = newChildObject(scriptState, {
 // (state when player has lost a life)
 
 var deadState = (function() {
-    
+
     // this state will always have these drawn
     var commonDraw = function() {
         renderer.blitMap();
@@ -1507,7 +1507,7 @@ var deadState = (function() {
                 },
                 update: function() {
                     var i;
-                    for (i=0; i<4; i++) 
+                    for (i=0; i<4; i++)
                         actors[i].frames++; // keep animating ghosts
                 },
                 draw: function() {
@@ -1572,7 +1572,7 @@ var finishState = (function(){
         renderer.drawPlayer();
         renderer.endMapClip();
     };
-    
+
     // flash the floor and draw
     var flashFloorAndDraw = function(on) {
         renderer.setLevelFlash(on);

@@ -24,15 +24,15 @@ var inGameMenu = (function() {
 
     // confirms a menu action
     var confirmMenu = new Menu("QUESTION?",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    confirmMenu.addTextButton("YES", function() {
+    confirmMenu.addTextButton("OUI", function() {
         confirmMenu.disable();
         confirmMenu.onConfirm();
     });
-    confirmMenu.addTextButton("NO", function() {
+    confirmMenu.addTextButton("NON", function() {
         confirmMenu.disable();
         showMainMenu();
     });
-    confirmMenu.addTextButton("CANCEL", function() {
+    confirmMenu.addTextButton("ANNULER", function() {
         confirmMenu.disable();
         showMainMenu();
     });
@@ -46,20 +46,20 @@ var inGameMenu = (function() {
     };
 
     // regular menu
-    var menu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    menu.addTextButton("RESUME", function() {
+    var menu = new Menu("PAUSE",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    menu.addTextButton("REPRENDRE", function() {
         menu.disable();
     });
-    menu.addTextButton("QUIT", function() {
-        showConfirm("QUIT GAME?", function() {
+    menu.addTextButton("ABANDONNER", function() {
+        showConfirm("ABANDONNER LA PARTIE?", function() {
             switchState(homeState, 60);
         });
     });
     menu.backButton = menu.buttons[0];
 
     // practice menu
-    var practiceMenu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
-    practiceMenu.addTextButton("RESUME", function() {
+    var practiceMenu = new Menu("PAUSE",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    practiceMenu.addTextButton("REPRENDRE", function() {
         hideMainMenu();
         vcr.onHudEnable();
     });
@@ -69,17 +69,17 @@ var inGameMenu = (function() {
             switchState(readyNewState, 60);
         });
     });
-    practiceMenu.addTextButton("SKIP LEVEL", function() {
-        showConfirm("SKIP LEVEL?", function() {
+    practiceMenu.addTextButton("PASSER LE LEVEL", function() {
+        showConfirm("PASSER LE LEVEL?", function() {
             switchState(readyNewState, 60);
         });
     });
-    practiceMenu.addTextButton("CHEATS", function() {
+    practiceMenu.addTextButton("TRICHES", function() {
         practiceMenu.disable();
         cheatsMenu.enable();
     });
-    practiceMenu.addTextButton("QUIT", function() {
-        showConfirm("QUIT GAME?", function() {
+    practiceMenu.addTextButton("ABANDONNER", function() {
+        showConfirm("ABANDONNER LA PARTIE?", function() {
             switchState(homeState, 60);
             clearCheats();
             vcr.reset();
@@ -88,7 +88,7 @@ var inGameMenu = (function() {
     practiceMenu.backButton = practiceMenu.buttons[0];
 
     // cheats menu
-    var cheatsMenu = new Menu("CHEATS",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var cheatsMenu = new Menu("TRICHES",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     cheatsMenu.addToggleTextButton("INVINCIBLE",
         function() {
             return pacman.invincible;
@@ -103,7 +103,7 @@ var inGameMenu = (function() {
         function(on) {
             turboMode = on;
         });
-    cheatsMenu.addToggleTextButton("SHOW TARGETS",
+    cheatsMenu.addToggleTextButton("MONTRER LES CIBLES",
         function() {
             return blinky.isDrawTarget;
         },
@@ -112,7 +112,7 @@ var inGameMenu = (function() {
                 ghosts[i].isDrawTarget = on;
             }
         });
-    cheatsMenu.addToggleTextButton("SHOW PATHS",
+    cheatsMenu.addToggleTextButton("MONTRER LES CHEMINS",
         function() {
             return blinky.isDrawPath;
         },
@@ -122,7 +122,7 @@ var inGameMenu = (function() {
             }
         });
     cheatsMenu.addSpacer(1);
-    cheatsMenu.addTextButton("BACK", function() {
+    cheatsMenu.addTextButton("RETOUR", function() {
         cheatsMenu.disable();
         practiceMenu.enable();
     });

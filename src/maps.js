@@ -343,15 +343,15 @@ mapMsPacman1.wallStrokeColor = "#FF0000";
 mapMsPacman1.pelletColor = "#dedeff";
 mapMsPacman1.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 164, "x": 228 }, "path": "<<<<vvv<<<<<<<<<^^^" }, 
-                 { "start": { "y": 164, "x": -4 }, "path": ">>>>vvvvvv>>>>>>>>>>>>>>>^^^<<<^^^" }, 
-                 { "start": { "y": 92, "x": -4 }, "path": ">>>>^^^^>>>vvvv>>>vvv>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 164, "x": 228 }, "path": "<<<<vvv<<<<<<<<<^^^" },
+                 { "start": { "y": 164, "x": -4 }, "path": ">>>>vvvvvv>>>>>>>>>>>>>>>^^^<<<^^^" },
+                 { "start": { "y": 92, "x": -4 }, "path": ">>>>^^^^>>>vvvv>>>vvv>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 92, "x": 228 }, "path": "<<<<vvvvvvvvv<<<^^^<<<vvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>>>>>>>^^^>>>>" }, 
-                 { "path": "<<<<vvv<<<<<<<<<^^^<<<<" }, 
-                 { "path": "<<<<<<<^^^^^^<<<<<<^^^<<<<" }, 
+                 { "path": "<vvv>>>>>>>>>^^^>>>>" },
+                 { "path": "<<<<vvv<<<<<<<<<^^^<<<<" },
+                 { "path": "<<<<<<<^^^^^^<<<<<<^^^<<<<" },
                  { "path": "<vvv>>>>>>>>>^^^^^^^^^^^^>>>>" }
              ]
          };
@@ -402,15 +402,15 @@ mapMsPacman2.wallStrokeColor = "#dedeff";
 mapMsPacman2.pelletColor = "#ffff00";
 mapMsPacman2.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 212, "x": 228 }, "path": "<<<<^^^<<<<<<<<^^^<" }, 
-                 { "start": { "y": 212, "x": -4 }, "path": ">>>>^^^>>>>>>>>vvv>>>>>^^^^^^<" }, 
-                 { "start": { "y": 36, "x": -4 }, "path": ">>>>>>>vvv>>>vvvvvvv>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 212, "x": 228 }, "path": "<<<<^^^<<<<<<<<^^^<" },
+                 { "start": { "y": 212, "x": -4 }, "path": ">>>>^^^>>>>>>>>vvv>>>>>^^^^^^<" },
+                 { "start": { "y": 36, "x": -4 }, "path": ">>>>>>>vvv>>>vvvvvvv>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 36, "x": 228 }, "path": "<<<<<<<vvv<<<vvvvvvvvvvvvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "vvv>>>>>>>>vvv>>>>" }, 
-                 { "path": "vvvvvv<<<<<^^^<<<<<<<<vvv<<<<" }, 
-                 { "path": "<<<<<<<^^^^^^^^^^^^^<<<^^^<<<<<<<" }, 
+                 { "path": "vvv>>>>>>>>vvv>>>>" },
+                 { "path": "vvvvvv<<<<<^^^<<<<<<<<vvv<<<<" },
+                 { "path": "<<<<<<<^^^^^^^^^^^^^<<<^^^<<<<<<<" },
                  { "path": "vvv>>>>>^^^^^^^^^^>>>>>^^^^^^<<<<<^^^>>>>>>>" }
              ]
          };
@@ -461,15 +461,15 @@ mapMsPacman3.wallStrokeColor = "#dedeff";
 mapMsPacman3.pelletColor = "#ff0000";
 mapMsPacman3.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 100, "x": 228 }, "path": "<<<<<vv<<<<<vvvvvv<<<" }, 
-                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" }, 
-                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 100, "x": 228 }, "path": "<<<<<vv<<<<<vvvvvv<<<" },
+                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" },
+                 { "start": { "y": 100, "x": -4 }, "path": ">>>>>vv>>>>>>>>>>>>>>vvvvvv<<<" },
                  { "start": { "y": 100, "x": 228 }, "path": "<<vvvvv<<<vvv<<<<<<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>vvv>>>^^^>>>>>^^^^^^^^^^^>>" }, 
-                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" }, 
-                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" }, 
+                 { "path": "<vvv>>>vvv>>>^^^>>>>>^^^^^^^^^^^>>" },
+                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" },
+                 { "path": "<<<<vvv<<<vvv<<<^^^<<<<<^^^^^^^^^^^<<" },
                  { "path": "<vvv>>>vvv>>>^^^^^^<<<^^^^^^>>>>>^^>>>>>" }
              ]
          };
@@ -528,15 +528,15 @@ mapMsPacman4.wallStrokeColor = "#ffb851";
 mapMsPacman4.pelletColor = "#dedeff";
 mapMsPacman4.fruitPaths = {
              "entrances": [
-                 { "start": { "y": 156, "x": 228 }, "path": "<<<<vv<<<vv<<<<<<^^^" }, 
-                 { "start": { "y": 156, "x": -4 }, "path": ">>>>vv>>>vv>>>>>>vvv>>>^^^^^^" }, 
-                 { "start": { "y": 132, "x": -4 }, "path": ">>>>^^^^^>>>^^^>>>vvv>>>vvv>>>>>>vvvvvv<<<" }, 
+                 { "start": { "y": 156, "x": 228 }, "path": "<<<<vv<<<vv<<<<<<^^^" },
+                 { "start": { "y": 156, "x": -4 }, "path": ">>>>vv>>>vv>>>>>>vvv>>>^^^^^^" },
+                 { "start": { "y": 132, "x": -4 }, "path": ">>>>^^^^^>>>^^^>>>vvv>>>vvv>>>>>>vvvvvv<<<" },
                  { "start": { "y": 132, "x": 228 }, "path": "<<<<^^<<<vvv<<<vvv<<<" }
-             ], 
+             ],
              "exits": [
-                 { "path": "<vvv>>>>>>^^>>>^^>>>>" }, 
-                 { "path": "<<<<vvv<<<<<<^^<<<^^<<<<" }, 
-                 { "path": "<<<<<<<^^^<<<^^^<<<vv<<<<" }, 
+                 { "path": "<vvv>>>>>>^^>>>^^>>>>" },
+                 { "path": "<<<<vvv<<<<<<^^<<<^^<<<<" },
+                 { "path": "<<<<<<<^^^<<<^^^<<<vv<<<<" },
                  { "path": "<vvv>>>>>>^^^^^^^^^>>>vv>>>>" }
              ]
          };
