@@ -1,56 +1,144 @@
 <!doctype html>
 <html>
-
 <head>
-
-    <title>Pac-Man</title>
-    <!-- last updated: Sun May 14 21:10:27 PDT 2023 -->
-    <!-- Lock viewport on mobile devices. -->
-    <!--
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-
-    -->
-    <!-- Allow page to be saved as web app on iOS. -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-
-    <!-- Hide status bar -->
-    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-    <!-- icon used for iOS Web App -->
-    <link rel="apple-touch-icon-precomposed" href="icon/ios_icon.png"/>
-
-    <link rel="icon" type="image/png" href="icon/favicon.png"/>
-
-    <style>
-        body {
-            margin:0;
-            background: #000;
-        }
-        @font-face {
-            font-family: 'ArcadeR';
-            src: url('font/ARCADE_R.TTF');
-            /*
-            src: url('font/PressStart2P.ttf');
-            */
-        }
-        #canvas-warning {
-            color: #FF0;
-            font-size: 1.5em;
-        }
-    </style>
-
-<script src="pacman.js"></script>
-
+  <title>Mason's Arcade</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="icon" type="image/png" href="icon/favicon.png"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @font-face {
+      font-family: 'ArcadeR';
+      src: url('font/ARCADE_R.TTF');
+    }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'ArcadeR', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 22px;
+      letter-spacing: 4px;
+      color: #FFE000;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #555;
+      margin-bottom: 64px;
+      text-align: center;
+    }
+    .games {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .game-preview {
+      width: 180px;
+      height: 180px;
+      border: 2px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .game-card:hover .game-preview {
+      transform: scale(1.04);
+    }
+    .classic .game-preview {
+      border-color: #FFE000;
+      background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+      box-shadow: 0 0 24px rgba(255,224,0,0.15);
+    }
+    .crypto .game-preview {
+      border-color: #f7931a;
+      background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+      box-shadow: 0 0 24px rgba(247,147,26,0.15);
+    }
+    .game-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .classic .game-title { color: #FFE000; }
+    .crypto .game-title { color: #f7931a; }
+    .game-desc {
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: #555;
+      text-align: center;
+      max-width: 180px;
+      line-height: 2;
+    }
+    .insert-coin {
+      margin-top: 72px;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #333;
+      animation: blink 1.2s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    /* Ghost row decoration */
+    .ghosts {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 48px;
+      font-size: 24px;
+    }
+  </style>
 </head>
-
 <body>
 
-</div>
+  <h1>MASON'S ARCADE</h1>
+  <p class="subtitle">SELECT YOUR GAME</p>
 
-    <div style='font-family: ArcadeR'> </div>
-    <canvas id='canvas'><div id="canvas-warning">Your browser does not support HTML Canvas.  Please upgrade!</div></canvas>
-    <canvas id='atlas' style="display:none"></canvas>
+  <div class="ghosts">
+    <span title="Blinky">👻</span>
+    <span title="Pinky">👻</span>
+    <span title="Inky">👻</span>
+    <span title="Clyde">👻</span>
+  </div>
+
+  <div class="games">
+
+    <a class="game-card classic" href="classic.html">
+      <div class="game-preview">🟡</div>
+      <div class="game-title">PAC-MAN<br>CLASSIC</div>
+      <div class="game-desc">THE ORIGINAL<br>ARCADE GAME</div>
+    </a>
+
+    <a class="game-card crypto" href="crypto.html">
+      <div class="game-preview">₿</div>
+      <div class="game-title">CRYPTO<br>PAC-MAN</div>
+      <div class="game-desc">SATOSHI'S REVENGE<br>COLLECT SATS<br>AVOID THE SEC</div>
+    </a>
+
+  </div>
+
+  <p class="insert-coin">— INSERT COIN —</p>
 
 </body>
-
 </html>
