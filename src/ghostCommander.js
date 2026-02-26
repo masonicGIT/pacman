@@ -89,7 +89,7 @@ var ghostCommander = (function() {
                 newCmd = getNewCommand(frame);
                 if (newCmd != undefined) {
                     command = newCmd;
-                    for (i=0; i<4; i++)
+                    for (var i=0; i<4; i++)
                         ghosts[i].reverse();
                 }
                 frame++;

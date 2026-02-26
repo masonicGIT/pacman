@@ -102,7 +102,7 @@ var ghostReleaser = (function(){
 
         },
         update: function() {
-            var g;
+            var g, i;
 
             // use personal dot counter
             if (mode == MODE_PERSONAL) {
