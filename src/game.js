@@ -127,7 +127,6 @@ var getPlayerDrawFunc = function(mode) {
         return atlas.drawMsPacmanSprite;
     }
     else if (mode == GAME_COOKIE) {
-        //return atlas.drawCookiemanSprite;
         return drawCookiemanSprite;
     }
 };

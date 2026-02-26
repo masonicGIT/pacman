@@ -41,12 +41,6 @@ var atlas = (function(){
         drawGrid();
         canvas = document.getElementById('atlas');
         ctx = canvas.getContext("2d");
-        /*
-        canvas.style.left = 0;
-        canvas.style.top = 0;
-        canvas.style.position = "absolute";
-        */
-
         var w = size*cols*renderScale;
         var h = size*rows*renderScale;
         canvas.width = w;
@@ -272,10 +266,6 @@ var atlas = (function(){
         var dy = y - size/2;
         var dw = size;
         var dh = size;
-
-        if (display) {
-            console.log(sx,sy,sw,sh,dw,dy,dw,dh);
-        }
 
         destCtx.drawImage(canvas,sx,sy,sw,sh,dx,dy,dw,dh);
     };
