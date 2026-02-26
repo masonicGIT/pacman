@@ -1073,7 +1073,7 @@ var cookieCutscene2 = (function() {
             })(), // trigger at 300
         }, // triggers
     }); // returned object
-})(); // cookieCutscene2
+})(); // mspacCutscene1
 
 var cutscenes = [
     [pacmanCutscene1], // GAME_PACMAN

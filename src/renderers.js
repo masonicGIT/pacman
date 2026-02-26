@@ -34,6 +34,7 @@ var getDevicePixelRatio = function() {
     // Only consider the device pixel ratio for devices that are <= 320 pixels in width.
     // This is necessary for the iPhone4's retina display; otherwise the game would be blurry.
     // The iPad3's retina display @ 2048x1536 starts slowing the game down.
+    return 1;
     if (window.innerWidth <= 320) {
         return window.devicePixelRatio || 1;
     }
@@ -107,6 +108,14 @@ var initRenderer = function(){
     var center = function() {
         var s = getTargetScale()/getDevicePixelRatio();
         var w = screenWidth*s;
+        var x = Math.max(0,(window.innerWidth-10)/2 - w/2);
+        var y = 0;
+        /*
+        canvas.style.position = "absolute";
+        canvas.style.left = x;
+        canvas.style.top = y;
+        console.log(canvas.style.left);
+        */
         document.body.style.marginLeft = (window.innerWidth - w)/2 + "px";
     };
 
@@ -249,6 +258,7 @@ var initRenderer = function(){
             var gap = 1;
             if (rightGrout) ctx.fillRect(px-w/2, py-w/2,w+gap,w);
             if (downGrout) ctx.fillRect(px-w/2, py-w/2,w,w+gap);
+            //if (rightGrout && downGrout && downRightGrout) ctx.fillRect(px-w/2, py-w/2,w+gap,w+gap);
         },
 
         // this flag is used to flash the level upon its successful completion
@@ -305,7 +315,7 @@ var initRenderer = function(){
             if ((dirEnum == DIR_UP && actor.tilePixel.y <= midTile.y) ||
                 (dirEnum == DIR_DOWN && actor.tilePixel.y >= midTile.y) ||
                 (dirEnum == DIR_LEFT && actor.tilePixel.x <= midTile.x) ||
-                (dirEnum == DIR_RIGHT && actor.tilePixel.x >= midTile.x)) {
+                (dirEnum == DIR_RIGHT & actor.tilePixel.x >= midTile.x)) {
                 tile.x += dir.x;
                 tile.y += dir.y;
             }
@@ -652,6 +662,7 @@ var initRenderer = function(){
             ctx.scale(1/scale,1/scale);
             ctx.drawImage(bgCanvas,-1-mapPad*scale,-1-mapPad*scale); // offset map to compenstate for misalignment
             ctx.scale(scale,scale);
+            //ctx.clearRect(-mapPad,-mapPad,mapWidth,mapHeight);
         },
 
         drawMap: function(isCutscene) {
@@ -762,6 +773,20 @@ var initRenderer = function(){
                     }
                     if (extraLives == Infinity) {
                         bgCtx.translate(-4*tileSize,0);
+
+                        // draw X
+                        /*
+                        bgCtx.translate(-s*2,0);
+                        var s = 2; // radius of each stroke
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(-s,-s);
+                        bgCtx.lineTo(s,s);
+                        bgCtx.moveTo(-s,s);
+                        bgCtx.lineTo(s,-s);
+                        bgCtx.lineWidth = 1;
+                        bgCtx.strokeStyle = "#777";
+                        bgCtx.stroke();
+                        */
 
                         // draw Infinity symbol
                         var r = 2; // radius of each half-circle

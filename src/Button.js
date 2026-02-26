@@ -217,6 +217,7 @@ Button.prototype = {
             ctx.fillStyle = this.isSelected && this.onclick ? this.fontcolor : "#777";
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
+            //ctx.fillText(this.msg, 2*tileSize+2*this.pad+this.x, this.y + this.h/2 + 1);
             ctx.fillText(this.msg, this.x + this.w/2, this.y + this.h/2 + 1);
         }
     },

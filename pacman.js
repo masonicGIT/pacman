@@ -287,6 +287,7 @@ var getPlayerDrawFunc = function(mode) {
         return atlas.drawMsPacmanSprite;
     }
     else if (mode == GAME_COOKIE) {
+        //return atlas.drawCookiemanSprite;
         return drawCookiemanSprite;
     }
 };
@@ -2570,6 +2571,12 @@ var atlas = (function(){
         drawGrid();
         canvas = document.getElementById('atlas');
         ctx = canvas.getContext("2d");
+        /*
+        canvas.style.left = 0;
+        canvas.style.top = 0;
+        canvas.style.position = "absolute";
+        */
+
         var w = size*cols*renderScale;
         var h = size*rows*renderScale;
         canvas.width = w;
@@ -2795,6 +2802,10 @@ var atlas = (function(){
         var dy = y - size/2;
         var dw = size;
         var dh = size;
+
+        if (display) {
+            console.log(sx,sy,sw,sh,dw,dy,dw,dh);
+        }
 
         destCtx.drawImage(canvas,sx,sy,sw,sh,dx,dy,dw,dh);
     };
@@ -3075,6 +3086,7 @@ var getDevicePixelRatio = function() {
     // Only consider the device pixel ratio for devices that are <= 320 pixels in width.
     // This is necessary for the iPhone4's retina display; otherwise the game would be blurry.
     // The iPad3's retina display @ 2048x1536 starts slowing the game down.
+    return 1;
     if (window.innerWidth <= 320) {
         return window.devicePixelRatio || 1;
     }
@@ -3148,6 +3160,14 @@ var initRenderer = function(){
     var center = function() {
         var s = getTargetScale()/getDevicePixelRatio();
         var w = screenWidth*s;
+        var x = Math.max(0,(window.innerWidth-10)/2 - w/2);
+        var y = 0;
+        /*
+        canvas.style.position = "absolute";
+        canvas.style.left = x;
+        canvas.style.top = y;
+        console.log(canvas.style.left);
+        */
         document.body.style.marginLeft = (window.innerWidth - w)/2 + "px";
     };
 
@@ -3290,6 +3310,7 @@ var initRenderer = function(){
             var gap = 1;
             if (rightGrout) ctx.fillRect(px-w/2, py-w/2,w+gap,w);
             if (downGrout) ctx.fillRect(px-w/2, py-w/2,w,w+gap);
+            //if (rightGrout && downGrout && downRightGrout) ctx.fillRect(px-w/2, py-w/2,w+gap,w+gap);
         },
 
         // this flag is used to flash the level upon its successful completion
@@ -3346,7 +3367,7 @@ var initRenderer = function(){
             if ((dirEnum == DIR_UP && actor.tilePixel.y <= midTile.y) ||
                 (dirEnum == DIR_DOWN && actor.tilePixel.y >= midTile.y) ||
                 (dirEnum == DIR_LEFT && actor.tilePixel.x <= midTile.x) ||
-                (dirEnum == DIR_RIGHT && actor.tilePixel.x >= midTile.x)) {
+                (dirEnum == DIR_RIGHT & actor.tilePixel.x >= midTile.x)) {
                 tile.x += dir.x;
                 tile.y += dir.y;
             }
@@ -3693,6 +3714,7 @@ var initRenderer = function(){
             ctx.scale(1/scale,1/scale);
             ctx.drawImage(bgCanvas,-1-mapPad*scale,-1-mapPad*scale); // offset map to compenstate for misalignment
             ctx.scale(scale,scale);
+            //ctx.clearRect(-mapPad,-mapPad,mapWidth,mapHeight);
         },
 
         drawMap: function(isCutscene) {
@@ -3803,6 +3825,20 @@ var initRenderer = function(){
                     }
                     if (extraLives == Infinity) {
                         bgCtx.translate(-4*tileSize,0);
+
+                        // draw X
+                        /*
+                        bgCtx.translate(-s*2,0);
+                        var s = 2; // radius of each stroke
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(-s,-s);
+                        bgCtx.lineTo(s,s);
+                        bgCtx.moveTo(-s,s);
+                        bgCtx.lineTo(s,-s);
+                        bgCtx.lineWidth = 1;
+                        bgCtx.strokeStyle = "#777";
+                        bgCtx.stroke();
+                        */
 
                         // draw Infinity symbol
                         var r = 2; // radius of each half-circle
@@ -4423,6 +4459,7 @@ Button.prototype = {
             ctx.fillStyle = this.isSelected && this.onclick ? this.fontcolor : "#777";
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
+            //ctx.fillText(this.msg, 2*tileSize+2*this.pad+this.x, this.y + this.h/2 + 1);
             ctx.fillText(this.msg, this.x + this.w/2, this.y + this.h/2 + 1);
         }
     },
@@ -8622,7 +8659,7 @@ var ghostCommander = (function() {
                 newCmd = getNewCommand(frame);
                 if (newCmd != undefined) {
                     command = newCmd;
-                    for (var i=0; i<4; i++)
+                    for (i=0; i<4; i++)
                         ghosts[i].reverse();
                 }
                 frame++;
@@ -8741,7 +8778,7 @@ var ghostReleaser = (function(){
 
         },
         update: function() {
-            var g, i;
+            var g;
 
             // use personal dot counter
             if (mode == MODE_PERSONAL) {
@@ -8921,7 +8958,6 @@ var energizer = (function() {
         save: save,
         load: load,
         reset: function() {
-            var i;
             audio.ghostTurnToBlue.stopLoop();
             count = 0;
             active = false;
@@ -9437,6 +9473,7 @@ var executive = (function(){
         },
         setUpdatesPerSecond: function(ups) {
             framePeriod = 1000/ups;
+            //gameTime = undefined;
             vcr.onFramePeriodChange();
         },
         init: function() {
@@ -11245,6 +11282,7 @@ var overState = (function() {
 
     // Slow-Motion
     var isPracticeMode = function() { return isPlayState() && practiceMode; };
+    //isPracticeMode = function() { return true; };
     addKeyDown(KEY_1, function() { executive.setUpdatesPerSecond(30); }, isPracticeMode);
     addKeyDown(KEY_2,  function() { executive.setUpdatesPerSecond(15); }, isPracticeMode);
     addKeyUp  (KEY_1, function() { executive.setUpdatesPerSecond(60); }, isPracticeMode);
@@ -12452,7 +12490,7 @@ var cookieCutscene2 = (function() {
             })(), // trigger at 300
         }, // triggers
     }); // returned object
-})(); // cookieCutscene2
+})(); // mspacCutscene1
 
 var cutscenes = [
     [pacmanCutscene1], // GAME_PACMAN
@@ -12665,6 +12703,7 @@ var mapPacman = new Map(28, 36, (
     "____________________________"));
 
 mapPacman.name = "Pac-Man";
+//mapPacman.wallStrokeColor = "#47b897"; // from Pac-Man Plus
 mapPacman.wallStrokeColor = "#2121ff"; // from original
 mapPacman.wallFillColor = "#000";
 mapPacman.pelletColor = "#ffb8ae";
@@ -13475,22 +13514,22 @@ window.addEventListener("load", function() {
     initRenderer();
     atlas.create();
     initSwipe();
-    var anchor = window.location.hash.substring(1);
-    if (anchor == "learn") {
-        switchState(learnState);
-    }
-    else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
-        gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
-        practiceMode = true;
+	var anchor = window.location.hash.substring(1);
+	if (anchor == "learn") {
+		switchState(learnState);
+	}
+	else if (anchor == "cheat_pac" || anchor == "cheat_mspac") {
+		gameMode = (anchor == "cheat_pac") ? GAME_PACMAN : GAME_MSPACMAN;
+		practiceMode = true;
         switchState(newGameState);
-        for (var i=0; i<4; i++) {
-            ghosts[i].isDrawTarget = true;
-            ghosts[i].isDrawPath = true;
-        }
-    }
-    else {
-        switchState(homeState);
-    }
+		for (var i=0; i<4; i++) {
+			ghosts[i].isDrawTarget = true;
+			ghosts[i].isDrawPath = true;
+		}
+	}
+	else {
+		switchState(homeState);
+	}
     executive.init();
 });
 })();

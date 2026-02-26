@@ -60,7 +60,6 @@ var energizer = (function() {
         save: save,
         load: load,
         reset: function() {
-            var i;
             audio.ghostTurnToBlue.stopLoop();
             count = 0;
             active = false;

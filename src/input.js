@@ -140,6 +140,7 @@
 
     // Slow-Motion
     var isPracticeMode = function() { return isPlayState() && practiceMode; };
+    //isPracticeMode = function() { return true; };
     addKeyDown(KEY_1, function() { executive.setUpdatesPerSecond(30); }, isPracticeMode);
     addKeyDown(KEY_2,  function() { executive.setUpdatesPerSecond(15); }, isPracticeMode);
     addKeyUp  (KEY_1, function() { executive.setUpdatesPerSecond(60); }, isPracticeMode);

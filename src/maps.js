@@ -147,6 +147,7 @@ var mapPacman = new Map(28, 36, (
     "____________________________"));
 
 mapPacman.name = "Pac-Man";
+//mapPacman.wallStrokeColor = "#47b897"; // from Pac-Man Plus
 mapPacman.wallStrokeColor = "#2121ff"; // from original
 mapPacman.wallFillColor = "#000";
 mapPacman.pelletColor = "#ffb8ae";
