@@ -166,6 +166,7 @@ var GAME_PACMAN = 0;
 var GAME_MSPACMAN = 1;
 var GAME_COOKIE = 2;
 var GAME_OTTO = 3;
+var GAME_CRYPTO = 4;
 
 var practiceMode = false;
 var turboMode = false;
@@ -174,7 +175,7 @@ var turboMode = false;
 var gameMode = GAME_PACMAN;
 var getGameName = (function(){
 
-    var names = ["PAC-MAN", "MS PAC-MAN", "COOKIE-MAN","CRAZY OTTO"];
+    var names = ["PAC-MAN", "MS PAC-MAN", "COOKIE-MAN","CRAZY OTTO","CRYPTO-MAN"];
     
     return function(mode) {
         if (mode == undefined) {
@@ -255,6 +256,9 @@ var getGhostNames = function(mode) {
     }
     else if (mode == GAME_COOKIE) {
         return ["elmo","piggy","rosita","zoe"];
+    }
+    else if (mode == GAME_CRYPTO) {
+        return ["bearish","fud","sec","whale"];
     }
 };
 
@@ -3798,6 +3802,12 @@ var initRenderer = function(){
                     else if (gameMode == GAME_OTTO) {
                         for (i=0; i<lives; i++) {
                             drawOttoSprite(bgCtx, 0,0,DIR_RIGHT, 0);
+                            bgCtx.translate(2*tileSize,0);
+                        }
+                    }
+                    else if (gameMode == GAME_CRYPTO) {
+                        for (i=0; i<lives; i++) {
+                            drawPacmanSprite(bgCtx, 0,0, DIR_LEFT, Math.PI/6);
                             bgCtx.translate(2*tileSize,0);
                         }
                     }
@@ -9591,6 +9601,30 @@ var homeState = (function(){
         function(ctx,x,y,frame) {
             drawCookiemanSprite(ctx,x,y,DIR_RIGHT,getIconAnimFrame(frame), true);
         });
+    menu.addTextIconButton(getGameName(GAME_CRYPTO),
+        function() {
+            gameMode = GAME_CRYPTO;
+            exitTo(preNewGameState);
+        },
+        function(ctx,x,y,frame) {
+            // Draw a Bitcoin-orange Pac-Man for Crypto-Man
+            ctx.save();
+            ctx.fillStyle = "#f7931a";
+            var r = 8;
+            var mouthAngle = 0.25 * Math.PI * (getIconAnimFrame(frame) % 2 === 0 ? 1 : 0.1);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x, y, r, mouthAngle, 2 * Math.PI - mouthAngle);
+            ctx.closePath();
+            ctx.fill();
+            // ₿ symbol
+            ctx.fillStyle = "#000";
+            ctx.font = "bold 8px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("₿", x, y+1);
+            ctx.restore();
+        });
 
     menu.addSpacer(0.5);
     menu.addTextIconButton("LEARN",
@@ -9790,7 +9824,7 @@ var gameTitleState = (function() {
     var resetTitle = function() {
         if (yellowBtn.isSelected) {
             name = getGameName();
-            nameColor = gameMode == GAME_COOKIE ? "#47b8ff" : pacman.color;
+            nameColor = gameMode == GAME_COOKIE ? "#47b8ff" : (gameMode == GAME_CRYPTO ? "#f7931a" : pacman.color);
         }
         else if (redBtn.isSelected) {
             name = getGhostNames()[0];
