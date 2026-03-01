@@ -454,18 +454,18 @@ var preNewGameState = (function() {
 
     menu.addSpacer(2);
     menu.addTextButton("PLAY",
-        function() { 
+        function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
-            exitTo(newGameState, 60);
+            requirePayment(function() { exitTo(newGameState, 60); });
         });
     menu.addTextButton("PLAY TURBO",
-        function() { 
+        function() {
             practiceMode = false;
             turboMode = true;
             newGameState.setStartLevel(1);
-            exitTo(newGameState, 60);
+            requirePayment(function() { exitTo(newGameState, 60); });
         });
     menu.addTextButton("PRACTICE",
         function() { 
@@ -1168,6 +1168,7 @@ var newGameState = (function() {
             extraLives = practiceMode ? Infinity : 3;
             setScore(0);
             setFruitFromGameMode();
+            gameStartTime = Date.now();
             readyNewState.init();
         },
         setStartLevel: function(i) {
@@ -1618,9 +1619,14 @@ var finishState = (function(){
 
 var overState = (function() {
     var frames;
+    var modeNames = ['pacman', 'mspacman', 'cookie', 'otto'];
     return {
         init: function() {
             frames = 0;
+            if (!practiceMode) {
+                var gameDurationFrames = Math.round((Date.now() - gameStartTime) / (1000 / 60));
+                submitGameScore(getScore(), gameDurationFrames, modeNames[gameMode] || 'pacman', turboMode);
+            }
         },
         draw: function() {
             renderer.blitMap();

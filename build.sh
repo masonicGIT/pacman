@@ -62,6 +62,7 @@ for file in \
     energizer.js \
     fruit.js \
     executive.js \
+    payment.js \
     states.js \
     input.js \
     cutscenes.js \
